@@ -12,7 +12,7 @@ const urlDatabase = {
 
 // Return a string of 6 random alphanumeric characters
 function generateRandomString() {
-  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const charLimit = 6;
   let randomString = '';
 
@@ -56,5 +56,4 @@ app.get('/hello', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}...`)
-  console.log(generateRandomString());
 });
