@@ -41,6 +41,7 @@ app.get('/urls/new', (req, res) => {
 });
 
 app.post('/urls', (req, res) => {
+  const id = generateRandomString();
   console.log(req.body);
   res.send('OK');
 });
