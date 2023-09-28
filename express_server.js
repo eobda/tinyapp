@@ -17,7 +17,7 @@ function generateRandomString() {
   let randomString = '';
 
   for (let i = 0; i < charLimit; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
+    randomString += chars.charAt(Math.floor(Math.random() * chars.length));
   }
 
   return randomString;
@@ -56,4 +56,5 @@ app.get('/hello', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}...`)
+  console.log(generateRandomString());
 });
