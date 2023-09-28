@@ -10,6 +10,19 @@ const urlDatabase = {
   '9sm5xK': 'http://www.google.com'
 };
 
+// Return a string of 6 random alphanumeric characters
+function generateRandomString() {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const charLimit = 6;
+  let randomString = '';
+
+  for (let i = 0; i < charLimit; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  return randomString;
+};
+
 app.get('/', (req, res) => {
   res.send('Hello!');
 });
