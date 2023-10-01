@@ -21,6 +21,9 @@
     <div>
       <% if (username !== undefined) { %>
         <span>Logged in as: <%= username %>!</span>
+        <form method="POST" action="/logout">
+          <button type="submit">Logout</button>
+        </form>
       <% } else { %>
         <form method="POST" action="/login">
           <input
