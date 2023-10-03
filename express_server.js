@@ -16,7 +16,7 @@ const urlDatabase = {
 const users = {};
 
 // Look up user by email
-function getUserByEmail(lookupEmail, users) {
+const getUserByEmail = function(lookupEmail, users) {
   for (const user in users) {
     if (users[user].email === lookupEmail) {
       return users[user];
@@ -27,7 +27,7 @@ function getUserByEmail(lookupEmail, users) {
 };
 
 // Return a string of 6 random alphanumeric characters
-function generateRandomString() {
+const generateRandomString = function() {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const charLimit = 6;
   let randomString = '';
