@@ -15,10 +15,10 @@ const urlDatabase = {
 
 const users = {};
 
-function getUserByEmail(email, users) {
+function getUserByEmail(lookupEmail, users) {
   for (const user in users) {
-    if (user.email === email) {
-      return user;
+    if (users[user].email === lookupEmail) {
+      return users[user];
     }
   }
 
