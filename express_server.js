@@ -77,8 +77,10 @@ app.post('/login', (req, res) => {
     res.status(403).send('Email not registered');    
   } else if (user.password !== req.body.password) {
     res.status(403).send('Incorrect password')
+  } else {
+    res.cookie('user_id', user.id);
+    res.redirect('/urls');
   }
- res.redirect('/urls');
 });
 
 app.post('/logout', (req, res) => {
