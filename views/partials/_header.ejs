@@ -20,10 +20,10 @@
     </div>
     <div>
       <% if (user === undefined) { %>
-        <form method="POST" action="/register">
+        <form method="GET" action="/register">
           <button type="submit">Register</button>
         </form>
-        <form method="POST" action="/login">
+        <form method="GET" action="/login">
           <button type="submit">Login</button>
         </form>  
         <% } else { %>
