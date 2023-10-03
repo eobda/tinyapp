@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 8080;
 const cookieParser = require('cookie-parser');
+const e = require('express');
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -49,6 +50,8 @@ app.get('/register', (req, res) => {
 app.post('/register', (req, res) => {
   if (req.body.email === '' || req.body.password === '') {
     res.status(400).send('Missing parameter');
+  } else if (emailLookup(req.body.email, users)) {
+    res.status(400).send('Email already registered');
   } else {
     const userID = generateRandomString();
     users[userID] = {
