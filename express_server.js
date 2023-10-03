@@ -15,7 +15,7 @@ const urlDatabase = {
 const users = {};
 
 function emailLookup(email, users) {
-  for (const user of users) {
+  for (const user in users) {
     if (user.email === email) {
       return user;
     }
