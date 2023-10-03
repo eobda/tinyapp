@@ -22,10 +22,11 @@ const getUserByEmail = function(lookupEmail, users) {
     }
   }
 
+  // If user not found
   return null;
 };
 
-// Return a string of 6 random alphanumeric characters
+// Return a string of random alphanumeric characters of a given length
 const generateRandomString = function(charLimit) {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let randomString = '';
