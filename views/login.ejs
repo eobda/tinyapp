@@ -20,7 +20,20 @@
 <body>
   <%- include('partials/_header') %>
   <main style="margin: 1em;">
-
+    <h3>Log In to TinyApp</h3>
+    <form action="/login" method="POST">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        name="email"
+      />
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        name="password"
+      />
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
   </main>
   <!-- Bootstrap JS -->
   <script
