@@ -21,11 +21,6 @@
     <div>
       <% if (user === undefined) { %>
         <form method="POST" action="/login">
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-          />
           <button type="submit">Login</button>
         </form>  
         <% } else { %>
