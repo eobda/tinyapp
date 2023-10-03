@@ -15,6 +15,7 @@ const urlDatabase = {
 
 const users = {};
 
+// Look up user by email
 function getUserByEmail(lookupEmail, users) {
   for (const user in users) {
     if (users[user].email === lookupEmail) {
