@@ -20,6 +20,9 @@
     </div>
     <div>
       <% if (user === undefined) { %>
+        <form method="POST" action="/register">
+          <button type="submit">Register</button>
+        </form>
         <form method="POST" action="/login">
           <button type="submit">Login</button>
         </form>  
