@@ -71,8 +71,10 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  if (getUserByEmail(req.body.email, users) === null) {
-    res.status(403).send('Email not registered');
+  const user = getUserByEmail(req.body.email, users);
+
+  if (user === null) {
+    res.status(403).send('Email not registered');    
   }
   res.redirect('/urls');
 });
