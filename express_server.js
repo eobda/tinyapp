@@ -71,7 +71,9 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  res.cookie('username', req.body.username);
+  if (getUserByEmail(req.body.email, users) === null) {
+    res.status(403).send('Email not registered');
+  }
   res.redirect('/urls');
 });
 
