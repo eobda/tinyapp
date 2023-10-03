@@ -108,7 +108,7 @@ app.post('/urls/:id/delete', (req, res) => {
 
 app.get('/u/:id', (req, res) => {
   if (urlDatabase[req.params.id] === undefined) {
-    res.status(404).send('URL ID not found!')
+    res.status(404).send('URL ID not found!');
   } else {
     const longURL = urlDatabase[req.params.id];
     res.redirect(longURL);
