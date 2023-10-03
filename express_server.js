@@ -27,9 +27,8 @@ const getUserByEmail = function(lookupEmail, users) {
 };
 
 // Return a string of 6 random alphanumeric characters
-const generateRandomString = function() {
+const generateRandomString = function(charLimit) {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  const charLimit = 6;
   let randomString = '';
 
   for (let i = 0; i < charLimit; i++) {
@@ -54,7 +53,7 @@ app.post('/register', (req, res) => {
   } else if (getUserByEmail(req.body.email, users)) {
     res.status(400).send('Email already registered');
   } else {
-    const userID = generateRandomString();
+    const userID = generateRandomString(6);
     users[userID] = {
       id: userID,
       email: req.body.email,
@@ -108,7 +107,7 @@ app.get('/urls/new', (req, res) => {
 });
 
 app.post('/urls', (req, res) => {
-  const id = generateRandomString();
+  const id = generateRandomString(6);
   urlDatabase[id] = req.body.longURL;
   res.redirect(`/urls/${id}`);
 });
