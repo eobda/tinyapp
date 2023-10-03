@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const PORT = 8080;
 const cookieParser = require('cookie-parser');
-const e = require('express');
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -73,9 +72,9 @@ app.post('/login', (req, res) => {
   const user = getUserByEmail(req.body.email, users);
 
   if (user === null) {
-    res.status(403).send('Email not registered');    
+    res.status(403).send('Email not registered');
   } else if (user.password !== req.body.password) {
-    res.status(403).send('Incorrect password')
+    res.status(403).send('Incorrect password');
   } else {
     res.cookie('user_id', user.id);
     res.redirect('/urls');
@@ -95,12 +94,12 @@ app.get('/urls', (req, res) => {
   const templateVars = {
     urls: urlDatabase,
     user: users[req.cookies['user_id']]
-   };
+  };
   res.render('urls_index', templateVars);
 });
 
 app.get('/urls/new', (req, res) => {
-  const templateVars = { 
+  const templateVars = {
     user: users[req.cookies['user_id']]
   };
   res.render('urls_new', templateVars);
@@ -142,5 +141,5 @@ app.get('/u/:id', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}...`)
+  console.log(`Example app listening on port ${PORT}...`);
 });
