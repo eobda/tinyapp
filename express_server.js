@@ -12,18 +12,7 @@ const urlDatabase = {
   '9sm5xK': 'http://www.google.com'
 };
 
-const users = {
-  userRandomID: {
-    id: "userRandomID",
-    email: "user@example.com",
-    password: "purple-monkey-dinosaur"
-  },
-  user2RandomID: {
-    id: "user2RandomID",
-    email: "user2@example.com",
-    password: "dishwasher-funk"
-  }
-};
+const users = {};
 
 // Return a string of 6 random alphanumeric characters
 function generateRandomString() {
@@ -45,6 +34,17 @@ app.get('/', (req, res) => {
 app.get('/register', (req, res) => {
   const templateVars = { username: req.cookies['username'] };
   res.render('register', templateVars);
+});
+
+app.post('/register', (req, res) => {
+  const newID = generateRandomString();
+  users[newID] = {
+    id: newID,
+    email: req.body.email,
+    password: req.body.password
+  };
+  console.log(users);
+  res.redirect('/urls');
 });
 
 app.post('/login', (req, res) => {
