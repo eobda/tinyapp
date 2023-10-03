@@ -14,6 +14,16 @@ const urlDatabase = {
 
 const users = {};
 
+function emailLookup(email, users) {
+  for (const user of users) {
+    if (user.email === email) {
+      return user;
+    }
+  }
+
+  return null;
+};
+
 // Return a string of 6 random alphanumeric characters
 function generateRandomString() {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
