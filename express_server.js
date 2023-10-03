@@ -29,6 +29,10 @@ app.get('/', (req, res) => {
   res.send('Hello!');
 });
 
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
 app.post('/login', (req, res) => {
   res.cookie('username', req.body.username);
   res.redirect('/urls');
