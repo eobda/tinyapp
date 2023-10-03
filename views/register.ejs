@@ -21,7 +21,19 @@
   <%- include('partials/_header') %>
   <main style="margin: 1em;">
     <h3>Register for TinyApp</h3>
-    
+    <form class="form-inline" action="/register" method="POST">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        name="email"
+      />
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        name="password"
+      />
+      <button type="submit">Register</button>
+    </form>
   </main>
   <!-- Bootstrap JS -->
   <script
