@@ -37,14 +37,18 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  const userID = generateRandomString();
-  users[userID] = {
-    id: userID,
-    email: req.body.email,
-    password: req.body.password
-  };
-  res.cookie('user_id', userID);
-  res.redirect('/urls');
+  if (req.body.email === '' || req.body.password === '') {
+    res.status(400).send('Missing parameter');
+  } else {
+    const userID = generateRandomString();
+    users[userID] = {
+      id: userID,
+      email: req.body.email,
+      password: req.body.password
+    };
+    res.cookie('user_id', userID);
+    res.redirect('/urls');
+  }
 });
 
 app.post('/login', (req, res) => {
