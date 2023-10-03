@@ -15,7 +15,7 @@ const urlDatabase = {
 
 const users = {};
 
-function emailLookup(email, users) {
+function getUserByEmail(email, users) {
   for (const user in users) {
     if (user.email === email) {
       return user;
@@ -50,7 +50,7 @@ app.get('/register', (req, res) => {
 app.post('/register', (req, res) => {
   if (req.body.email === '' || req.body.password === '') {
     res.status(400).send('Missing parameter');
-  } else if (emailLookup(req.body.email, users)) {
+  } else if (getUserByEmail(req.body.email, users)) {
     res.status(400).send('Email already registered');
   } else {
     const userID = generateRandomString();
