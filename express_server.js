@@ -30,7 +30,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  res.render('register');
+  const templateVars = { username: req.cookies['username'] };
+  res.render('register', templateVars);
 });
 
 app.post('/login', (req, res) => {
