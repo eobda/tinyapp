@@ -54,7 +54,12 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  if (req.body.email === '' || req.body.password === '') {
+  const user = users[req.cookies['user_id']];
+
+  if (user !== undefined) {
+    res.redirect('/urls');
+    return;
+  } else if (req.body.email === '' || req.body.password === '') {
     res.status(400).send('Missing parameter');
   } else if (getUserByEmail(req.body.email, users)) {
     res.status(400).send('Email already registered');
