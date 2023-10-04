@@ -159,13 +159,20 @@ app.post('/urls/:id', (req, res) => {
 });
 
 app.post('/urls/:id/delete', (req, res) => {
-  delete urlDatabase[req.params.id];
-  res.redirect('/urls');
+  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+
+  if (user === null) {
+    res.send('You are not logged in!');
+  } else {
+    delete urlDatabase[req.params.id];
+    res.redirect('/urls');
+  }
 });
 
 app.get('/u/:id', (req, res) => {
   if (urlDatabase[req.params.id] === undefined) {
     res.status(404).send('URL ID not found!');
+    return;
   } else {
     const longURL = urlDatabase[req.params.id];
     res.redirect(longURL);
