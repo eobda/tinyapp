@@ -49,9 +49,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  const user = users[req.cookies['user_id']];
+  const user = getUser(req.cookies['user_id'], 'id', users);
 
-  if (user === undefined) {
+  if (user === null) {
     const templateVars = { user };
     res.render('register', templateVars);
     return;
@@ -78,9 +78,9 @@ if (req.body.email === '' || req.body.password === '') {
 });
 
 app.get('/login', (req, res) => {
-  const user = users[req.cookies['user_id']];
+  const user = getUser(req.cookies['user_id'], 'id', users);
 
-  if (user === undefined) {
+  if (user === null) {
     const templateVars = { user };
     res.render('login', templateVars);
     return;
@@ -120,9 +120,9 @@ app.get('/urls', (req, res) => {
 });
 
 app.get('/urls/new', (req, res) => {
-  const user = users[req.cookies['user_id']];
+  const user = getUser(req.cookies['user_id'], 'id', users);
 
-  if (user === undefined) {
+  if (user === null) {
     res.redirect('/login');
     return;
   } else {
