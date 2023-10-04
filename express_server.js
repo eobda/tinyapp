@@ -20,7 +20,7 @@ const users = {
   }
 };
 
-// Look up user by email
+// Look up user by any parameter
 const getUser = function(lookup, param, users) {
   for (const user in users) {
     if (users[user][param] === lookup) {
