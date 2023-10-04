@@ -132,9 +132,15 @@ app.get('/urls/new', (req, res) => {
 });
 
 app.post('/urls', (req, res) => {
-  const id = generateRandomString(6);
-  urlDatabase[id] = req.body.longURL;
-  res.redirect(`/urls/${id}`);
+  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+
+  if (user === null) {
+    res.send('You are not logged in!');
+  } else {
+    const id = generateRandomString(6);
+    urlDatabase[id] = req.body.longURL;
+    res.redirect(`/urls/${id}`);
+  }
 });
 
 app.get('/urls/:id', (req, res) => {
