@@ -49,17 +49,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  const templateVars = { user: users[req.cookies['user_id']] };
-  res.render('register', templateVars);
+  const user = users[req.cookies['user_id']];
+
+  if (user === undefined) {
+    const templateVars = { user };
+    res.render('register', templateVars);
+    return;
+  } else {
+    res.redirect('/urls');
+  }
 });
 
 app.post('/register', (req, res) => {
-  const user = users[req.cookies['user_id']];
-
-  if (user !== undefined) {
-    res.redirect('/urls');
-    return;
-  } else if (req.body.email === '' || req.body.password === '') {
+if (req.body.email === '' || req.body.password === '') {
     res.status(400).send('Missing parameter');
   } else if (getUserByEmail(req.body.email, users)) {
     res.status(400).send('Email already registered');
