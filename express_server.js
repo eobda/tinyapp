@@ -114,7 +114,7 @@ app.get('/urls.json', (req, res) => {
 app.get('/urls', (req, res) => {
   const templateVars = {
     urls: urlDatabase,
-    user: users[req.cookies['user_id']]
+    user: getUserByParam(req.cookies['user_id'], 'id', users)
   };
   res.render('urls_index', templateVars);
 });
@@ -147,7 +147,7 @@ app.get('/urls/:id', (req, res) => {
   const templateVars = {
     id: req.params.id,
     longURL: urlDatabase[req.params.id],
-    user: users[req.cookies['user_id']]
+    user: getUserByParam(req.cookies['user_id'], 'id', users)
   };
   res.render('urls_show', templateVars);
 });
