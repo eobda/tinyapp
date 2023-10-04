@@ -21,7 +21,7 @@ const users = {
 };
 
 // Look up user by any parameter
-const getUser = function(lookup, param, users) {
+const getUserByParam = function(lookup, param, users) {
   for (const user in users) {
     if (users[user][param] === lookup) {
       return users[user];
@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  const user = getUser(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
     const templateVars = { user };
@@ -63,7 +63,7 @@ app.get('/register', (req, res) => {
 app.post('/register', (req, res) => {
 if (req.body.email === '' || req.body.password === '') {
     res.status(400).send('Missing parameter');
-  } else if (getUser(req.body.email, 'email', users)) {
+  } else if (getUserByParam(req.body.email, 'email', users)) {
     res.status(400).send('Email already registered');
   } else {
     const userID = generateRandomString(6);
@@ -78,7 +78,7 @@ if (req.body.email === '' || req.body.password === '') {
 });
 
 app.get('/login', (req, res) => {
-  const user = getUser(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
     const templateVars = { user };
@@ -90,7 +90,7 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const user = getUser(req.body.email, 'email', users);
+  const user = getUserByParam(req.body.email, 'email', users);
 
   if (user === null) {
     res.status(403).send('Email not registered');
@@ -120,7 +120,7 @@ app.get('/urls', (req, res) => {
 });
 
 app.get('/urls/new', (req, res) => {
-  const user = getUser(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
     res.redirect('/login');
