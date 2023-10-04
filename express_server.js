@@ -72,7 +72,6 @@ app.post('/register', (req, res) => {
 
 app.get('/login', (req, res) => {
   const user = users[req.cookies['user_id']];
-  console.log(user);
 
   if (user === undefined) {
     const templateVars = { user };
