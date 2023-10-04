@@ -12,7 +12,13 @@ const urlDatabase = {
   '9sm5xK': 'http://www.google.com'
 };
 
-const users = {};
+const users = {
+  'abc123': {
+    id: 'abc123',
+    email: 'maddie@lighthouselabs.ca',
+    password: 'aeiou'
+  }
+};
 
 // Look up user by email
 const getUserByEmail = function(lookupEmail, users) {
