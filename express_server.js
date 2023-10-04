@@ -153,9 +153,15 @@ app.get('/urls/:id', (req, res) => {
 });
 
 app.post('/urls/:id', (req, res) => {
-  const newURL = req.body.newURL;
-  urlDatabase[req.params.id] = newURL;
-  res.redirect('/urls');
+  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+
+  if (user === null) {
+    res.send('You are not logged in!');
+  } else {
+    const newURL = req.body.newURL;
+    urlDatabase[req.params.id] = newURL;
+    res.redirect('/urls');
+  }
 });
 
 app.post('/urls/:id/delete', (req, res) => {
