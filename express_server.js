@@ -65,8 +65,16 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  const templateVars = { user: users[req.cookies['user_id']] };
-  res.render('login', templateVars);
+  const user = users[req.cookies['user_id']];
+  console.log(user);
+
+  if (user === undefined) {
+    const templateVars = { user };
+    res.render('login', templateVars);
+    return;
+  } else {
+    res.redirect('/urls');
+  }
 });
 
 app.post('/login', (req, res) => {
