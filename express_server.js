@@ -120,10 +120,15 @@ app.get('/urls', (req, res) => {
 });
 
 app.get('/urls/new', (req, res) => {
-  const templateVars = {
-    user: users[req.cookies['user_id']]
-  };
-  res.render('urls_new', templateVars);
+  const user = users[req.cookies['user_id']];
+
+  if (user === undefined) {
+    res.redirect('/login');
+    return;
+  } else {
+    const templateVars = { user };
+    res.render('urls_new', templateVars);
+  }
 });
 
 app.post('/urls', (req, res) => {
