@@ -63,7 +63,7 @@ app.get('/register', (req, res) => {
 app.post('/register', (req, res) => {
 if (req.body.email === '' || req.body.password === '') {
     res.status(400).send('Missing parameter');
-  } else if (getUserByEmail(req.body.email, users)) {
+  } else if (getUser(req.body.email, 'email', users)) {
     res.status(400).send('Email already registered');
   } else {
     const userID = generateRandomString(6);
@@ -90,7 +90,7 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const user = getUserByEmail(req.body.email, users);
+  const user = getUser(req.body.email, 'email', users);
 
   if (user === null) {
     res.status(403).send('Email not registered');
