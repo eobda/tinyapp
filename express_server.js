@@ -118,11 +118,17 @@ app.get('/urls.json', (req, res) => {
 });
 
 app.get('/urls', (req, res) => {
+  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+
+  if (user === null) {
+    res.send('You are not logged in!');
+  } else {
   const templateVars = {
     urls: urlDatabase,
-    user: getUserByParam(req.cookies['user_id'], 'id', users)
+    user
   };
   res.render('urls_index', templateVars);
+  }
 });
 
 app.get('/urls/new', (req, res) => {
