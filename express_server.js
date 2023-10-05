@@ -165,7 +165,10 @@ app.post('/urls/:id', (req, res) => {
     res.send('You are not logged in!');
   } else {
     const newURL = req.body.newURL;
-    urlDatabase[req.params.id] = newURL;
+    urlDatabase[req.params.id] = {
+      longURL: newURL,
+      userID: user.id
+    };
     res.redirect('/urls');
   }
 });
