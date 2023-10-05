@@ -186,8 +186,8 @@ app.get('/u/:id', (req, res) => {
     res.status(404).send('URL ID not found!');
     return;
   } else {
-    const longURL = urlDatabase[req.params.id];
-    res.redirect(longURL);
+    const redirectURL = urlDatabase[req.params.id].longURL;
+    res.redirect(redirectURL);
   }
 });
 
