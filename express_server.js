@@ -144,7 +144,10 @@ app.post('/urls', (req, res) => {
     res.send('You are not logged in!');
   } else {
     const id = generateRandomString(6);
-    urlDatabase[id] = req.body.longURL;
+    urlDatabase[id] = {
+      longURL: req.body.longURL,
+      userID: user.id
+    };
     res.redirect(`/urls/${id}`);
   }
 });
