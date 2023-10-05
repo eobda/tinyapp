@@ -121,7 +121,7 @@ app.get('/urls', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
-    res.send('You are not logged in!');
+    res.send('You are not logged in. Please log in or register to shorten URLS.');
   } else {
   const templateVars = {
     urls: urlDatabase,
