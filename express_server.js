@@ -38,6 +38,21 @@ const getUserByParam = function(lookup, param, users) {
   return null;
 };
 
+// Return URLs where the userID is equal to the ID of the currently logged-in user
+const urlsForUser = function(id) {
+  const userURLs = {};
+  for (const url in urlDatabase) {
+    console.log(url);
+    if (url.userID === id) {
+      userURLs[url] = {
+        longURL: url.longURL,
+        userID: url.userID
+      };
+    }
+  }
+  return userURLs;
+}
+
 // Return a string of random alphanumeric characters of a given length
 const generateRandomString = function(charLimit) {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -124,7 +139,7 @@ app.get('/urls', (req, res) => {
     res.send('You are not logged in. Please log in or register to shorten URLS.');
   } else {
   const templateVars = {
-    urls: urlDatabase,
+    urls: urlsForUser(user.id),
     user
   };
   res.render('urls_index', templateVars);
