@@ -198,8 +198,12 @@ app.get('/urls/:id', (req, res) => {
 
 app.post('/urls/:id', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const id = urlDatabase[req.params.id]
 
-  if (user === null) {
+  if (id === undefined) {
+    res.send('ID does not exist\n');
+    return;
+  } else if (user === null) {
     res.send('You are not logged in!\n');
   } else {
     const newURL = req.body.newURL;
