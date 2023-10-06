@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 8080;
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -23,10 +24,11 @@ const urlDatabase = {
 };
 
 const users = {
+  // example user to test functionality
   'abc123': {
     id: 'abc123',
     email: 'maddie@lighthouselabs.ca',
-    password: 'aeiou'
+    password: bcrypt.hashSync('aeiou', 10)
   }
 };
 
@@ -104,7 +106,7 @@ if (req.body.email === '' || req.body.password === '') {
     users[userID] = {
       id: userID,
       email: req.body.email,
-      password: req.body.password
+      password: bcrypt.hashSync(req.body.password, 10)
     };
     res.cookie('user_id', userID);
     res.redirect('/urls');
@@ -125,11 +127,12 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   const user = getUserByParam(req.body.email, 'email', users);
+  // const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
   if (user === null) {
     res.status(403);
     res.render('error', { message: 'Email not registered', user });
-  } else if (user.password !== req.body.password) {
+  } else if (!bcrypt.compareSync(req.body.password, user.password)) {
     res.status(403);
     res.render('error', { message: 'Incorrect password', user });
   } else {
