@@ -24,6 +24,7 @@ const urlDatabase = {
 };
 
 const users = {
+  // example user to test functionality
   'abc123': {
     id: 'abc123',
     email: 'maddie@lighthouselabs.ca',
