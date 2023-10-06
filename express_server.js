@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const PORT = 8080;
-const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 // const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
