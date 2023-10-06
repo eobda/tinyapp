@@ -27,7 +27,7 @@ const users = {
   'abc123': {
     id: 'abc123',
     email: 'maddie@lighthouselabs.ca',
-    password: 'aeiou'
+    password: bcrypt.hashSync('aeiou', 10)
   }
 };
 
