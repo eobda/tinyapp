@@ -19,17 +19,15 @@
       </div>
     </div>
     <div>
-      <% if (username === undefined) { %>
-        <form method="POST" action="/login">
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-          />
+      <% if (user === null) { %>
+        <form method="GET" action="/register">
+          <button type="submit">Register</button>
+        </form>
+        <form method="GET" action="/login">
           <button type="submit">Login</button>
         </form>  
         <% } else { %>
-        <span>Logged in as: <%= username %>!</span>
+        <span>Logged in as: <%= user.email %>!</span>
         <form method="POST" action="/logout">
           <button type="submit">Logout</button>
         </form>
