@@ -46,7 +46,6 @@ const getUserByParam = function(lookup, param, users) {
 const urlsForUser = function(id) {
   const userURLs = {};
   for (const url in urlDatabase) {
-    console.log(url);
     if (urlDatabase[url].userID === id) {
       userURLs[url] = {
         longURL: urlDatabase[url].longURL,
