@@ -94,7 +94,8 @@ app.get('/register', (req, res) => {
 
 app.post('/register', (req, res) => {
 if (req.body.email === '' || req.body.password === '') {
-    res.status(400).send('Missing parameter\n');
+    res.status(400);
+    res.render('error', { message: 'Missing parameter', user: null });
   } else if (getUserByParam(req.body.email, 'email', users)) {
     res.status(400).send('Email already registered\n');
   } else {
