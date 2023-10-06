@@ -15,6 +15,10 @@ const urlDatabase = {
   '9sm5xK': {
     longURL: 'http://www.google.com',
     userID: 'abc123'
+  },
+  'm4T2s9': {
+    longURL: 'http://www.kitbfilms.com',
+    userID: 'def456'
   }
 };
 
