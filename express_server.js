@@ -189,7 +189,7 @@ app.get('/urls/:id', (req, res) => {
   } else {
     const templateVars = {
       id,
-      longURL: urlDatabase[req.params.id].longURL,
+      longURL: urlDatabase[id].longURL,
       user
     };
     res.render('urls_show', templateVars);
