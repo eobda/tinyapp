@@ -130,7 +130,7 @@ app.post('/login', (req, res) => {
   if (user === null) {
     res.status(403);
     res.render('error', { message: 'Email not registered', user });
-  } else if (user.password !== req.body.password) {
+  } else if (!bcrypt.compareSync(req.body.password, user.password)) {
     res.status(403);
     res.render('error', { message: 'Incorrect password', user });
   } else {
