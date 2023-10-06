@@ -180,7 +180,10 @@ app.get('/urls/:id', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
   const id = req.params.id;
 
-  if (urlDatabase[id].userID === user.id) {
+  if (user === null) {
+    res.send('You are not logged in!');
+    return;
+  } else if (urlDatabase[id].userID === user.id) {
     const templateVars = {
       id,
       longURL: urlDatabase[req.params.id].longURL,
