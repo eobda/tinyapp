@@ -230,10 +230,12 @@ app.post('/urls/:id/delete', (req, res) => {
 });
 
 app.get('/u/:id', (req, res) => {
-  if (urlDatabase[req.params.id] === undefined) {
+  const id = urlDatabase[req.params.id];
+
+  if (urlDatabase[id] === undefined) {
     res.status(404).send('URL ID not found!\n');
   } else {
-    const redirectURL = urlDatabase[req.params.id].longURL;
+    const redirectURL = urlDatabase[id].longURL;
     res.redirect(redirectURL);
   }
 });
