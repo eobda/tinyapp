@@ -79,13 +79,13 @@ app.get('/', (req, res) => {
 app.get('/error', (req, res) => {
   const templateVars = {
     message: req.body.message,
-    user: getUserByParam(req.cookies['user_id'], 'id', users)
+    user: getUserByParam(req.session.user_id, 'id', users)
   };
   res.render('error', templateVars);
 })
 
 app.get('/register', (req, res) => {
-  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.session.user_id, 'id', users);
 
   if (user === null) {
     const templateVars = { user };
@@ -110,13 +110,13 @@ if (req.body.email === '' || req.body.password === '') {
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 10)
     };
-    res.cookie('user_id', userID);
+    req.session.user_id = userID;
     res.redirect('/urls');
   }
 });
 
 app.get('/login', (req, res) => {
-  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.session.user_id, 'id', users);
 
   if (user === null) {
     const templateVars = { user };
@@ -138,7 +138,7 @@ app.post('/login', (req, res) => {
     res.status(403);
     res.render('error', { message: 'Incorrect password', user });
   } else {
-    res.cookie('user_id', user.id);
+    req.session.user_id = user.id;
     res.redirect('/urls');
   }
 });
@@ -153,7 +153,7 @@ app.get('/urls.json', (req, res) => {
 });
 
 app.get('/urls', (req, res) => {
-  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.session.user_id, 'id', users);
 
   if (user === null) {
     res.status(403);
@@ -168,7 +168,7 @@ app.get('/urls', (req, res) => {
 });
 
 app.get('/urls/new', (req, res) => {
-  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.session.user_id, 'id', users);
 
   if (user === null) {
     res.redirect('/login');
@@ -180,7 +180,7 @@ app.get('/urls/new', (req, res) => {
 });
 
 app.post('/urls', (req, res) => {
-  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.session.user_id, 'id', users);
 
   if (user === null) {
     res.status(403);
@@ -196,7 +196,7 @@ app.post('/urls', (req, res) => {
 });
 
 app.get('/urls/:id', (req, res) => {
-  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.session.user_id, 'id', users);
   const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
@@ -219,7 +219,7 @@ app.get('/urls/:id', (req, res) => {
 });
 
 app.post('/urls/:id', (req, res) => {
-  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.session.user_id, 'id', users);
   const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
@@ -239,7 +239,7 @@ app.post('/urls/:id', (req, res) => {
 });
 
 app.post('/urls/:id/delete', (req, res) => {
-  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const user = getUserByParam(req.session.user_id, 'id', users);
   const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
@@ -264,7 +264,7 @@ app.get('/u/:id', (req, res) => {
     res.status(404);
     res.render('error', { 
       message: 'URL ID not found!',
-      user: getUserByParam(req.cookies['user_id'], 'id', users)
+      user: getUserByParam(req.session.user_id, 'id', users)
     });
   } else {
     const redirectURL = urlDatabase[id].longURL;
