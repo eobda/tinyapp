@@ -181,7 +181,7 @@ app.get('/urls/:id', (req, res) => {
   const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
-    res.status(404).send('ID does not exist\n');
+    res.status(404).send('URL ID not found!\n');
   } else if (user === null) {
     res.status(403).send('You are not logged in!\n');
   } else if (urlDatabase[id].userID !== user.id) {
@@ -201,7 +201,7 @@ app.post('/urls/:id', (req, res) => {
   const id = urlDatabase[req.params.id]
 
   if (urlDatabase[id] === undefined) {
-    res.status(404).send('ID does not exist\n');
+    res.status(404).send('URL ID not found!\n');
   } else if (user === null) {
     res.status(403).send('You are not logged in!\n');
   } else if (urlDatabase[id].userID !== user.id) {
@@ -218,7 +218,7 @@ app.post('/urls/:id/delete', (req, res) => {
   const id = urlDatabase[req.params.id]
 
   if (urlDatabase[id] === undefined) {
-    res.status(404).send('ID does not exist\n');
+    res.status(404).send('URL ID not found!\n');
   } else if (user === null) {
     res.status(403).send('You are not logged in!\n');
   } else if (urlDatabase[id].userID !== user.id) {
