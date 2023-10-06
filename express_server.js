@@ -217,6 +217,8 @@ app.post('/urls/:id/delete', (req, res) => {
     return;
   } else if (user === null) {
     res.send('You are not logged in!\n');
+  } else if (urlDatabase[id].userID !== user.id) {
+    res.send('You do not have permission to delete this URL.\n')
   } else {
     delete urlDatabase[req.params.id];
     res.redirect('/urls');
