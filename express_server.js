@@ -72,6 +72,14 @@ app.get('/', (req, res) => {
   res.send('Hello!\n');
 });
 
+app.get('/error', (req, res) => {
+  const templateVars = {
+    message: req.body.message,
+    user: getUserByParam(req.cookies['user_id'], 'id', users)
+  };
+  res.render('error', templateVars);
+})
+
 app.get('/register', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
