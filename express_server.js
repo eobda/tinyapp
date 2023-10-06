@@ -205,6 +205,8 @@ app.post('/urls/:id', (req, res) => {
     return;
   } else if (user === null) {
     res.send('You are not logged in!\n');
+  } else if (urlDatabase[id].userID !== user.id) {
+    res.send('You do not have pemrission to edit this URL.\n');
   } else {
     const newURL = req.body.newURL;
     urlDatabase[req.params.id].longURL = newURL;
