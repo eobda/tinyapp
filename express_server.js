@@ -177,12 +177,20 @@ app.post('/urls', (req, res) => {
 });
 
 app.get('/urls/:id', (req, res) => {
-  const templateVars = {
-    id: req.params.id,
-    longURL: urlDatabase[req.params.id].longURL,
-    user: getUserByParam(req.cookies['user_id'], 'id', users)
-  };
-  res.render('urls_show', templateVars);
+  const user = getUserByParam(req.cookies['user_id'], 'id', users);
+  const id = req.params.id;
+
+  if (urlDatabase[id].userID === user.id) {
+    const templateVars = {
+      id,
+      longURL: urlDatabase[req.params.id].longURL,
+      user
+    };
+    res.render('urls_show', templateVars);
+    return;
+  } else {
+    res.send('Error: URL belongs to a different user');
+  }
 });
 
 app.post('/urls/:id', (req, res) => {
