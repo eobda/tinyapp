@@ -139,7 +139,7 @@ app.get('/urls', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
-    res.send('You are not logged in. Please log in or register to shorten URLS.\n');
+    res.status(403).send('You are not logged in. Please log in or register to shorten URLS.\n');
   } else {
   const templateVars = {
     urls: urlsForUser(user.id),
@@ -165,7 +165,7 @@ app.post('/urls', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
-    res.send('You are not logged in!\n');
+    res.status(403).send('You are not logged in!\n');
   } else {
     const id = generateRandomString(6);
     urlDatabase[id] = {
@@ -181,11 +181,11 @@ app.get('/urls/:id', (req, res) => {
   const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
-    res.send('ID does not exist\n');
+    res.status(404).send('ID does not exist\n');
   } else if (user === null) {
-    res.send('You are not logged in!\n');
+    res.status(403).send('You are not logged in!\n');
   } else if (urlDatabase[id].userID !== user.id) {
-    res.send('You do not have permission to access this page\n');
+    res.status(403).send('You do not have permission to access this page\n');
   } else {
     const templateVars = {
       id,
@@ -201,11 +201,11 @@ app.post('/urls/:id', (req, res) => {
   const id = urlDatabase[req.params.id]
 
   if (urlDatabase[id] === undefined) {
-    res.send('ID does not exist\n');
+    res.status(404).send('ID does not exist\n');
   } else if (user === null) {
-    res.send('You are not logged in!\n');
+    res.status(403).send('You are not logged in!\n');
   } else if (urlDatabase[id].userID !== user.id) {
-    res.send('You do not have pemrission to edit this URL.\n');
+    res.status(403).send('You do not have pemrission to edit this URL.\n');
   } else {
     const newURL = req.body.newURL;
     urlDatabase[id].longURL = newURL;
@@ -218,11 +218,11 @@ app.post('/urls/:id/delete', (req, res) => {
   const id = urlDatabase[req.params.id]
 
   if (urlDatabase[id] === undefined) {
-    res.send('ID does not exist\n');
+    res.status(404).send('ID does not exist\n');
   } else if (user === null) {
-    res.send('You are not logged in!\n');
+    res.status(403).send('You are not logged in!\n');
   } else if (urlDatabase[id].userID !== user.id) {
-    res.send('You do not have permission to delete this URL.\n')
+    res.status(403).send('You do not have permission to delete this URL.\n')
   } else {
     delete urlDatabase[id];
     res.redirect('/urls');
