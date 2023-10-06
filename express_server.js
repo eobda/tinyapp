@@ -69,7 +69,7 @@ const generateRandomString = function(charLimit) {
 };
 
 app.get('/', (req, res) => {
-  res.send('Hello!\nn');
+  res.send('Hello!\n');
 });
 
 app.get('/register', (req, res) => {
