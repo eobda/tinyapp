@@ -43,10 +43,10 @@ const urlsForUser = function(id) {
   const userURLs = {};
   for (const url in urlDatabase) {
     console.log(url);
-    if (url.userID === id) {
+    if (urlDatabase[url].userID === id) {
       userURLs[url] = {
-        longURL: url.longURL,
-        userID: url.userID
+        longURL: urlDatabase[url].longURL,
+        userID: urlDatabase[url].userID
       };
     }
   }
