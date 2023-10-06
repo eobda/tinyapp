@@ -69,7 +69,7 @@ const generateRandomString = function(charLimit) {
 };
 
 app.get('/', (req, res) => {
-  res.send('Hello!');
+  res.send('Hello!\nn');
 });
 
 app.get('/register', (req, res) => {
@@ -86,9 +86,9 @@ app.get('/register', (req, res) => {
 
 app.post('/register', (req, res) => {
 if (req.body.email === '' || req.body.password === '') {
-    res.status(400).send('Missing parameter');
+    res.status(400).send('Missing parameter\n');
   } else if (getUserByParam(req.body.email, 'email', users)) {
-    res.status(400).send('Email already registered');
+    res.status(400).send('Email already registered\n');
   } else {
     const userID = generateRandomString(6);
     users[userID] = {
@@ -117,9 +117,9 @@ app.post('/login', (req, res) => {
   const user = getUserByParam(req.body.email, 'email', users);
 
   if (user === null) {
-    res.status(403).send('Email not registered');
+    res.status(403).send('Email not registered\n');
   } else if (user.password !== req.body.password) {
-    res.status(403).send('Incorrect password');
+    res.status(403).send('Incorrect password\n');
   } else {
     res.cookie('user_id', user.id);
     res.redirect('/urls');
@@ -139,7 +139,7 @@ app.get('/urls', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
-    res.send('You are not logged in. Please log in or register to shorten URLS.');
+    res.send('You are not logged in. Please log in or register to shorten URLS.\n');
   } else {
   const templateVars = {
     urls: urlsForUser(user.id),
@@ -165,7 +165,7 @@ app.post('/urls', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
-    res.send('You are not logged in!');
+    res.send('You are not logged in!\n');
   } else {
     const id = generateRandomString(6);
     urlDatabase[id] = {
@@ -181,7 +181,7 @@ app.get('/urls/:id', (req, res) => {
   const id = req.params.id;
 
   if (user === null) {
-    res.send('You are not logged in!');
+    res.send('You are not logged in!\n');
     return;
   } else if (urlDatabase[id].userID === user.id) {
     const templateVars = {
@@ -192,7 +192,7 @@ app.get('/urls/:id', (req, res) => {
     res.render('urls_show', templateVars);
     return;
   } else {
-    res.send('Error: URL belongs to a different user');
+    res.send('Error: URL belongs to a different user\n');
   }
 });
 
@@ -200,7 +200,7 @@ app.post('/urls/:id', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
-    res.send('You are not logged in!');
+    res.send('You are not logged in!\n');
   } else {
     const newURL = req.body.newURL;
     urlDatabase[req.params.id].longURL = newURL;
@@ -213,10 +213,10 @@ app.post('/urls/:id/delete', (req, res) => {
   const id = urlDatabase[req.params.id]
 
   if (id === undefined) {
-    res.send('ID does not exist');
+    res.send('ID does not exist\n');
     return;
   } else if (user === null) {
-    res.send('You are not logged in!');
+    res.send('You are not logged in!\n');
   } else {
     delete urlDatabase[req.params.id];
     res.redirect('/urls');
@@ -225,7 +225,7 @@ app.post('/urls/:id/delete', (req, res) => {
 
 app.get('/u/:id', (req, res) => {
   if (urlDatabase[req.params.id] === undefined) {
-    res.status(404).send('URL ID not found!');
+    res.status(404).send('URL ID not found!\n');
     return;
   } else {
     const redirectURL = urlDatabase[req.params.id].longURL;
