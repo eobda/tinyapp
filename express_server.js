@@ -209,7 +209,7 @@ app.post('/urls/:id', (req, res) => {
     res.send('You do not have pemrission to edit this URL.\n');
   } else {
     const newURL = req.body.newURL;
-    urlDatabase[req.params.id].longURL = newURL;
+    urlDatabase[id].longURL = newURL;
     res.redirect('/urls');
   }
 });
@@ -226,7 +226,7 @@ app.post('/urls/:id/delete', (req, res) => {
   } else if (urlDatabase[id].userID !== user.id) {
     res.send('You do not have permission to delete this URL.\n')
   } else {
-    delete urlDatabase[req.params.id];
+    delete urlDatabase[id];
     res.redirect('/urls');
   }
 });
