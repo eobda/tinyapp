@@ -97,7 +97,8 @@ if (req.body.email === '' || req.body.password === '') {
     res.status(400);
     res.render('error', { message: 'Missing parameter', user: null });
   } else if (getUserByParam(req.body.email, 'email', users)) {
-    res.status(400).send('Email already registered\n');
+    res.status(400);
+    res.render('error', { message: 'Email already registered', user: null });
   } else {
     const userID = generateRandomString(6);
     users[userID] = {
@@ -126,9 +127,11 @@ app.post('/login', (req, res) => {
   const user = getUserByParam(req.body.email, 'email', users);
 
   if (user === null) {
-    res.status(403).send('Email not registered\n');
+    res.status(403);
+    res.render('error', { message: 'Email not registered', user });
   } else if (user.password !== req.body.password) {
-    res.status(403).send('Incorrect password\n');
+    res.status(403);
+    res.render('error', { message: 'Incorrect password', user });
   } else {
     res.cookie('user_id', user.id);
     res.redirect('/urls');
@@ -148,7 +151,8 @@ app.get('/urls', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
-    res.status(403).send('You are not logged in. Please log in or register to shorten URLS.\n');
+    res.status(403);
+    res.render('error', { message: 'You are not logged in. Please log in or register to shorten URLS.', user });
   } else {
   const templateVars = {
     urls: urlsForUser(user.id),
@@ -174,7 +178,8 @@ app.post('/urls', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
 
   if (user === null) {
-    res.status(403).send('You are not logged in!\n');
+    res.status(403);
+    res.render('error', { message: 'You are not logged in. Please log in or register to shorten URLS.', user });
   } else {
     const id = generateRandomString(6);
     urlDatabase[id] = {
@@ -190,11 +195,14 @@ app.get('/urls/:id', (req, res) => {
   const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
-    res.status(404).send('URL ID not found!\n');
+    res.status(404);
+    res.render('error', { message: 'URL ID not found!', user });
   } else if (user === null) {
-    res.status(403).send('You are not logged in!\n');
+    res.status(403);
+    res.render('error', { message: 'You are not logged in. Please log in or register to shorten URLS.', user });
   } else if (urlDatabase[id].userID !== user.id) {
-    res.status(403).send('You do not have permission to access this page\n');
+    res.status(403);
+    res.render('error', { message: 'You do not have permission to access this page.', user });
   } else {
     const templateVars = {
       id,
@@ -210,11 +218,14 @@ app.post('/urls/:id', (req, res) => {
   const id = urlDatabase[req.params.id]
 
   if (urlDatabase[id] === undefined) {
-    res.status(404).send('URL ID not found!\n');
+    res.status(404);
+    res.render('error', { message: 'URL ID not found!', user });
   } else if (user === null) {
-    res.status(403).send('You are not logged in!\n');
+    res.status(403);
+    res.render('error', { message: 'You are not logged in. Please log in or register to edit URLS.', user });
   } else if (urlDatabase[id].userID !== user.id) {
-    res.status(403).send('You do not have pemrission to edit this URL.\n');
+    res.status(403);
+    res.render('error', { message: 'You do not have permission to edit this URL.', user });
   } else {
     const newURL = req.body.newURL;
     urlDatabase[id].longURL = newURL;
@@ -227,11 +238,14 @@ app.post('/urls/:id/delete', (req, res) => {
   const id = urlDatabase[req.params.id]
 
   if (urlDatabase[id] === undefined) {
-    res.status(404).send('URL ID not found!\n');
+    res.status(404);
+    res.render('error', { message: 'URL ID not found!', user });
   } else if (user === null) {
-    res.status(403).send('You are not logged in!\n');
+    res.status(403);
+    res.render('error', { message: 'You are not logged in. Please log in or register to edit URLS.', user });
   } else if (urlDatabase[id].userID !== user.id) {
-    res.status(403).send('You do not have permission to delete this URL.\n')
+    res.status(403);
+    res.render('error', { message: 'You do not have permission to delete this URL.', user });
   } else {
     delete urlDatabase[id];
     res.redirect('/urls');
@@ -242,7 +256,11 @@ app.get('/u/:id', (req, res) => {
   const id = urlDatabase[req.params.id];
 
   if (urlDatabase[id] === undefined) {
-    res.status(404).send('URL ID not found!\n');
+    res.status(404);
+    res.render('error', { 
+      message: 'URL ID not found!',
+      user: getUserByParam(req.cookies['user_id'], 'id', users)
+    });
   } else {
     const redirectURL = urlDatabase[id].longURL;
     res.redirect(redirectURL);
