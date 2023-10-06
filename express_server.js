@@ -180,7 +180,10 @@ app.get('/urls/:id', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
   const id = req.params.id;
 
-  if (user === null) {
+  if (id === undefined) {
+    res.send('ID does not exist\n');
+    return;
+  } else if (user === null) {
     res.send('You are not logged in!\n');
     return;
   } else if (urlDatabase[id].userID === user.id) {
