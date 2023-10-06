@@ -186,16 +186,15 @@ app.get('/urls/:id', (req, res) => {
   } else if (user === null) {
     res.send('You are not logged in!\n');
     return;
-  } else if (urlDatabase[id].userID === user.id) {
+  } else if (urlDatabase[id].userID !== user.id) {
+    res.send('You do not have permission to access this page\n');
+  } else {
     const templateVars = {
       id,
       longURL: urlDatabase[req.params.id].longURL,
       user
     };
     res.render('urls_show', templateVars);
-    return;
-  } else {
-    res.send('Error: URL belongs to a different user\n');
   }
 });
 
