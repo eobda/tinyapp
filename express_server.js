@@ -105,7 +105,7 @@ if (req.body.email === '' || req.body.password === '') {
     users[userID] = {
       id: userID,
       email: req.body.email,
-      password: req.body.password
+      password: bsync.hashSync(req.body.password, 10)
     };
     res.cookie('user_id', userID);
     res.redirect('/urls');
