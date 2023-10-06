@@ -180,7 +180,7 @@ app.get('/urls/:id', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
   const id = req.params.id;
 
-  if (id === undefined) {
+  if (urlDatabase[id] === undefined) {
     res.send('ID does not exist\n');
     return;
   } else if (user === null) {
@@ -202,7 +202,7 @@ app.post('/urls/:id', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
   const id = urlDatabase[req.params.id]
 
-  if (id === undefined) {
+  if (urlDatabase[id] === undefined) {
     res.send('ID does not exist\n');
     return;
   } else if (user === null) {
@@ -220,7 +220,7 @@ app.post('/urls/:id/delete', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
   const id = urlDatabase[req.params.id]
 
-  if (id === undefined) {
+  if (urlDatabase[id] === undefined) {
     res.send('ID does not exist\n');
     return;
   } else if (user === null) {
