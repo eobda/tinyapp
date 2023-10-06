@@ -215,7 +215,7 @@ app.get('/urls/:id', (req, res) => {
 
 app.post('/urls/:id', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
-  const id = urlDatabase[req.params.id]
+  const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
     res.status(404);
@@ -235,7 +235,7 @@ app.post('/urls/:id', (req, res) => {
 
 app.post('/urls/:id/delete', (req, res) => {
   const user = getUserByParam(req.cookies['user_id'], 'id', users);
-  const id = urlDatabase[req.params.id]
+  const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
     res.status(404);
@@ -253,7 +253,7 @@ app.post('/urls/:id/delete', (req, res) => {
 });
 
 app.get('/u/:id', (req, res) => {
-  const id = urlDatabase[req.params.id];
+  const id = req.params.id;
 
   if (urlDatabase[id] === undefined) {
     res.status(404);
