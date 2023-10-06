@@ -182,10 +182,8 @@ app.get('/urls/:id', (req, res) => {
 
   if (urlDatabase[id] === undefined) {
     res.send('ID does not exist\n');
-    return;
   } else if (user === null) {
     res.send('You are not logged in!\n');
-    return;
   } else if (urlDatabase[id].userID !== user.id) {
     res.send('You do not have permission to access this page\n');
   } else {
@@ -204,7 +202,6 @@ app.post('/urls/:id', (req, res) => {
 
   if (urlDatabase[id] === undefined) {
     res.send('ID does not exist\n');
-    return;
   } else if (user === null) {
     res.send('You are not logged in!\n');
   } else if (urlDatabase[id].userID !== user.id) {
@@ -222,7 +219,6 @@ app.post('/urls/:id/delete', (req, res) => {
 
   if (urlDatabase[id] === undefined) {
     res.send('ID does not exist\n');
-    return;
   } else if (user === null) {
     res.send('You are not logged in!\n');
   } else if (urlDatabase[id].userID !== user.id) {
@@ -236,7 +232,6 @@ app.post('/urls/:id/delete', (req, res) => {
 app.get('/u/:id', (req, res) => {
   if (urlDatabase[req.params.id] === undefined) {
     res.status(404).send('URL ID not found!\n');
-    return;
   } else {
     const redirectURL = urlDatabase[req.params.id].longURL;
     res.redirect(redirectURL);
