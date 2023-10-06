@@ -8,7 +8,10 @@ const cookieSession = require('cookie-session');
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 // app.use(cookieParser());
-app.use(cookieSession());
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}));
 
 const urlDatabase = {
   'b2xVn2': {
