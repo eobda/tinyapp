@@ -105,7 +105,7 @@ if (req.body.email === '' || req.body.password === '') {
     users[userID] = {
       id: userID,
       email: req.body.email,
-      password: bsync.hashSync(req.body.password, 10)
+      password: bcrypt.hashSync(req.body.password, 10)
     };
     res.cookie('user_id', userID);
     res.redirect('/urls');
@@ -126,6 +126,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   const user = getUserByParam(req.body.email, 'email', users);
+  // const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
   if (user === null) {
     res.status(403);
