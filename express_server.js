@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
 const PORT = 8080;
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+// app.use(cookieParser());
+app.use(cookieSession());
 
 const urlDatabase = {
   'b2xVn2': 'http://www.lighthouselabs.ca',
