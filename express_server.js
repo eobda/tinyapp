@@ -51,7 +51,7 @@ const urlsForUser = function(id) {
     }
   }
   return userURLs;
-}
+};
 
 // Return a string of random alphanumeric characters of a given length
 const generateRandomString = function(charLimit) {
@@ -75,7 +75,7 @@ app.get('/error', (req, res) => {
     user: getUserByParam(req.session.user_id, 'id', users)
   };
   res.render('error', templateVars);
-})
+});
 
 app.get('/register', (req, res) => {
   const user = getUserByParam(req.session.user_id, 'id', users);
@@ -90,7 +90,7 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-if (req.body.email === '' || req.body.password === '') {
+  if (req.body.email === '' || req.body.password === '') {
     res.status(400);
     res.render('error', { message: 'Missing parameter', user: null });
   } else if (getUserByParam(req.body.email, 'email', users)) {
@@ -122,7 +122,6 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   const user = getUserByParam(req.body.email, 'email', users);
-  // const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
   if (user === null) {
     res.status(403);
@@ -149,11 +148,11 @@ app.get('/urls', (req, res) => {
     res.status(403);
     res.render('error', { message: 'You are not logged in. Please log in or register to shorten URLS.', user });
   } else {
-  const templateVars = {
-    urls: urlsForUser(user.id),
-    user
-  };
-  res.render('urls_index', templateVars);
+    const templateVars = {
+      urls: urlsForUser(user.id),
+      user
+    };
+    res.render('urls_index', templateVars);
   }
 });
 
@@ -252,7 +251,7 @@ app.get('/u/:id', (req, res) => {
 
   if (urlDatabase[id] === undefined) {
     res.status(404);
-    res.render('error', { 
+    res.render('error', {
       message: 'URL ID not found!',
       user: getUserByParam(req.session.user_id, 'id', users)
     });
