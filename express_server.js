@@ -1,9 +1,10 @@
 const express = require('express');
-const app = express();
-const PORT = 8080;
 const bcrypt = require('bcryptjs');
 const cookieSession = require('cookie-session');
 const getUserByParam = require('./helpers');
+
+const app = express();
+const PORT = 8080;
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
