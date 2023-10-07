@@ -66,7 +66,7 @@ const generateRandomString = function(charLimit) {
 };
 
 // ** ROUTES **
-// Base route - redirects based on if user is logged in or not
+// Default route - redirects based on if user is logged in or not
 app.get('/', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
 
@@ -156,6 +156,7 @@ app.post('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+// URLS
 // GET default URL table if user is signed in
 app.get('/urls', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
@@ -172,6 +173,7 @@ app.get('/urls', (req, res) => {
   }
 });
 
+// NEW URL
 // GET new URL creation page if user is signed in
 app.get('/urls/new', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
@@ -202,6 +204,7 @@ app.post('/urls', (req, res) => {
   }
 });
 
+// URL ID PAGE
 // GET URL ID page
 app.get('/urls/:id', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
@@ -226,7 +229,7 @@ app.get('/urls/:id', (req, res) => {
   }
 });
 
-// PUT to change the long URL that a URL ID redirects to
+// PUT to edit the long URL that a URL ID redirects to
 app.put('/urls/:id', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
   const id = req.params.id;
