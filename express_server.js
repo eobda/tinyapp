@@ -98,10 +98,10 @@ app.get('/register', (req, res) => {
 app.post('/register', (req, res) => {
   if (req.body.email === '' || req.body.password === '') {
     res.status(400);
-    res.render('error', { message: 'Missing parameter', user: null });
+    res.render('error', { message: 'Email or password cannot be blank.', user: null });
   } else if (getUserByParam(req.body.email, 'email', users)) {
     res.status(400);
-    res.render('error', { message: 'Email already registered', user: null });
+    res.render('error', { message: 'Email already registered!', user: null });
   } else {
     const userID = generateRandomString(6);
     users[userID] = {
