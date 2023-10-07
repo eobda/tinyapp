@@ -35,7 +35,7 @@ const users = {
   'abc123': {
     id: 'abc123',
     email: 'maddie@lighthouselabs.ca',
-    password: bcrypt.hashSync('aeiou', 10)
+    password: bcrypt.hashSync('aeiou', bcrypt.genSaltSync(10))
   }
 };
 
@@ -107,7 +107,7 @@ app.post('/register', (req, res) => {
     users[userID] = {
       id: userID,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, 10)
+      password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
     };
     req.session.userID = userID;
     res.redirect('/urls');
