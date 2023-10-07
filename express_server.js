@@ -65,6 +65,8 @@ const generateRandomString = function(charLimit) {
   return randomString;
 };
 
+// ** ROUTES **
+// Base route - redirects based on if user is logged in or not
 app.get('/', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
 
@@ -75,6 +77,7 @@ app.get('/', (req, res) => {
   }
 });
 
+// Default error page route
 app.get('/error', (req, res) => {
   const templateVars = {
     message: req.body.message,
@@ -83,6 +86,8 @@ app.get('/error', (req, res) => {
   res.render('error', templateVars);
 });
 
+// REGISTER
+// GET registration page if user is not signed in
 app.get('/register', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
 
@@ -95,6 +100,7 @@ app.get('/register', (req, res) => {
   }
 });
 
+// POST user registration
 app.post('/register', (req, res) => {
   if (req.body.email === '' || req.body.password === '') {
     res.status(400);
@@ -114,6 +120,8 @@ app.post('/register', (req, res) => {
   }
 });
 
+// LOGIN
+// GET login page if user is not signed in
 app.get('/login', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
 
@@ -126,6 +134,7 @@ app.get('/login', (req, res) => {
   }
 });
 
+// POST user login
 app.post('/login', (req, res) => {
   const user = getUserByParam(req.body.email, 'email', users);
 
@@ -141,11 +150,13 @@ app.post('/login', (req, res) => {
   }
 });
 
+// POST user logout
 app.post('/logout', (req, res) => {
   req.session = null;
   res.redirect('/login');
 });
 
+// GET default URL table if user is signed in
 app.get('/urls', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
 
@@ -161,6 +172,7 @@ app.get('/urls', (req, res) => {
   }
 });
 
+// GET new URL creation page if user is signed in
 app.get('/urls/new', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
 
@@ -173,6 +185,7 @@ app.get('/urls/new', (req, res) => {
   }
 });
 
+// POST new shortened URL and redirect to URL's ID page
 app.post('/urls', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
 
@@ -189,6 +202,7 @@ app.post('/urls', (req, res) => {
   }
 });
 
+// GET URL ID page
 app.get('/urls/:id', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
   const id = req.params.id;
@@ -212,6 +226,7 @@ app.get('/urls/:id', (req, res) => {
   }
 });
 
+// PUT to change the long URL that a URL ID redirects to
 app.put('/urls/:id', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
   const id = req.params.id;
@@ -232,6 +247,7 @@ app.put('/urls/:id', (req, res) => {
   }
 });
 
+// DELETE a short URL ID from the database
 app.delete('/urls/:id', (req, res) => {
   const user = getUserByParam(req.session.userID, 'id', users);
   const id = req.params.id;
@@ -251,6 +267,7 @@ app.delete('/urls/:id', (req, res) => {
   }
 });
 
+// GET long URL that an ID redirects to
 app.get('/u/:id', (req, res) => {
   const id = req.params.id;
 
@@ -266,6 +283,7 @@ app.get('/u/:id', (req, res) => {
   }
 });
 
+// ** SERVER **
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}...`);
 });
