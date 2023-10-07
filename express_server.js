@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const cookieSession = require('cookie-session');
+const methodOverride = require('method-override');
 const { getUserByParam } = require('./helpers');
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
 }));
+app.use(methodOverride('_method'));
 
 const urlDatabase = {
   'b2xVn2': {
