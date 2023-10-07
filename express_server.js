@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const cookieSession = require('cookie-session');
-const getUserByParam = require('./helpers');
+const { getUserByParam } = require('./helpers');
 
 const app = express();
 const PORT = 8080;
