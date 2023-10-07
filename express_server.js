@@ -142,8 +142,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  res.clearCookie('session');
-  res.clearCookie('session.sig');
+  req.session = null;
   res.redirect('/login');
 });
 
