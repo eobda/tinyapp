@@ -1,8 +1,8 @@
 {
   "name": "tinyapp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A full stack web application that allows users to shorten long URLs",
+  "main": "express_server.js",
   "scripts": {
     "start": "./node_modules/.bin/nodemon -L express_server.js",
     "test": "mocha"
