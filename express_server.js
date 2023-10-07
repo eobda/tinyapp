@@ -3,6 +3,7 @@ const app = express();
 const PORT = 8080;
 const bcrypt = require('bcryptjs');
 const cookieSession = require('cookie-session');
+const getUserByParam = require('./helpers');
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
