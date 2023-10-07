@@ -232,7 +232,7 @@ app.post('/urls/:id', (req, res) => {
   }
 });
 
-app.post('/urls/:id/delete', (req, res) => {
+app.delete('/urls/:id', (req, res) => {
   const user = getUserByParam(req.session.user_id, 'id', users);
   const id = req.params.id;
 
