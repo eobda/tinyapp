@@ -35,18 +35,6 @@ const users = {
   }
 };
 
-// Look up user by any parameter
-const getUserByParam = function(lookup, param, users) {
-  for (const user in users) {
-    if (users[user][param] === lookup) {
-      return users[user];
-    }
-  }
-
-  // If user not found
-  return null;
-};
-
 // Return URLs where the userID is equal to the ID of the currently logged-in user
 const urlsForUser = function(id) {
   const userURLs = {};
