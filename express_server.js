@@ -66,7 +66,13 @@ const generateRandomString = function(charLimit) {
 };
 
 app.get('/', (req, res) => {
-  res.redirect('/urls');
+  const user = getUserByParam(req.session.user_id, 'id', users);
+
+  if (user === null) {
+    res.redirect('/login');
+  } else {
+    res.redirect('/urls');
+  }
 });
 
 app.get('/error', (req, res) => {
