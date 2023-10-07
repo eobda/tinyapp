@@ -12,7 +12,11 @@
     "url": "git+https://github.com/eobda/tinyapp.git"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Maddie Lee",
+    "email": "lee.maddie@gmail.com",
+    "url": "http://github.com/eobda"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/eobda/tinyapp/issues"
