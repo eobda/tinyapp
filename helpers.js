@@ -9,3 +9,5 @@ const getUserByParam = function(lookup, param, users) {
   // If user not found
   return null;
 };
+
+module.exports = { getUserByParam };
