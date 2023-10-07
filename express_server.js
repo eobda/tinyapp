@@ -142,10 +142,6 @@ app.post('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-app.get('/urls.json', (req, res) => {
-  res.json(urlDatabase);
-});
-
 app.get('/urls', (req, res) => {
   const user = getUserByParam(req.session.user_id, 'id', users);
 
