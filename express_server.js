@@ -66,7 +66,7 @@ const generateRandomString = function(charLimit) {
 };
 
 app.get('/', (req, res) => {
-  res.send('Hello!\n');
+  res.redirect('/urls');
 });
 
 app.get('/error', (req, res) => {
